@@ -18,6 +18,8 @@ A bash script that sets up syncing of an R Markdown script with an Overleaf proj
 2. Go to the directory in which you would like to create your project.
 3. Run `setup_article.sh "<URL from Overleaf>" "<Name of project>"`.
 
+Optional: You can change the author name in the script to your own name to make the process of setting up a new article even quicker.
+
 ### In RStudio
 
 To upload to Overleaf run the following commands in the RStudio terminal:
