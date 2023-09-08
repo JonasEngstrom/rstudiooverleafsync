@@ -56,6 +56,7 @@ EOF
 
 # Create a CSL file for Vancouver formatting (replace with another file from the
 # Zotero Style Repsitory, https://www.zotero.org/styles, if desired).
+# The following code was also taken from the Zotero Style Repository.
 cat << EOF > vancouver-superscript.csl
 <?xml version="1.0" encoding="utf-8"?>
 <style xmlns="http://purl.org/net/xbiblio/csl" class="in-text" version="1.0" demote-non-dropping-particle="sort-only" initialize-with-hyphen="false" page-range-format="minimal">

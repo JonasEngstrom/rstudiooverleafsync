@@ -32,3 +32,16 @@ git push -u origin master
 ```
 
 The file `main.tex` will then have to be rendered on Overleaf.
+
+### Prerequisites
+
+The script was written to work with the following software versions:
+
+- macOS Ventura 13.5.1
+- git 2.39.2
+- GNU bash 3.2.57(1)
+- RStudio 2023.06.0+421
+- R 4.3.1 Beagle Scouts
+- rmarkdown 2.23
+- tinytex 0.45
+- knitr 1.43
