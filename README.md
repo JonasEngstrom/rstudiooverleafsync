@@ -33,13 +33,13 @@ git push -u origin master
 
 The file `main.tex` will then have to be rendered on Overleaf.
 
-### Keeping Biblatex Cite Keys
+## Keeping Biblatex Cite Keys
 
 Sometimes it can be desirable to keep the Biblatex cite keys and format the references and bibliography on Overleaf, rather than having them rendered by Knitr. To make this easy the script sets up a CSL file that puts placeholders around the cite keys in the manuscript. A git pre-commit hook in the submodule where the `main.tex` file is stored then replaces the placeholders with the appropriate Latex code.
 
 To use the CSL file, replace the default `csl: vancouver-superscript.csl` with `csl: preserve-cite-keys.csl` in the YAML section at the top of the RMarkdown file. The pre-commit hook will take care of the rest. Note that the Biblatex style defaults to Vancouver. This can be changed in the Latex code.
 
-### Prerequisites
+## Prerequisites
 
 The script was written to work with the following software versions:
 
