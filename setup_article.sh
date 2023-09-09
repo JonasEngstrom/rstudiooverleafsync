@@ -44,16 +44,6 @@ RnwWeave: Sweave
 LaTeX: pdfLaTeX
 EOF
 
-# Create a sample reference file.
-cat << EOF > references.bib
-@phdthesis{ronne1962antiproton,
-year = {1962},
-title = {Antiproton and Negative Pion Interactions in Complex Nuclei},
-author = {Ronne, B. E.},
-institution = {Stockholm University}
-}
-EOF
-
 # Create a CSL file for Vancouver formatting (replace with another file from the
 # Zotero Style Repsitory, https://www.zotero.org/styles, if desired).
 # The following code was also taken from the Zotero Style Repository.
@@ -411,6 +401,30 @@ cat << EOF > vancouver-superscript.csl
 </style>
 EOF
 
+# Create a custom CSL file that can be used to preserve Biblatex cite keys.
+cat << EOF > "preserve-cite-keys.csl"
+<?xml version="1.0" encoding="utf-8"?>
+<style class="in-text" version="1.0" xmlns="http://purl.org/net/xbiblio/csl">
+  <info>
+    <title>Preserve Citation Keys for Latex Conversion</title>
+    <author>
+      <name>Jonas Engström</name>
+      <email>j.e.engstrom@gmail.com</email>
+    </author>
+  </info>
+  <citation>
+    <layout font-weight="normal">
+      <text variable="citation-key" prefix="@STARTCITE@" suffix="@ENDCITE@"/>
+    </layout>
+  </citation>
+  <bibliography>
+    <layout>
+      <text value="@BIBLIOGRAPHYLOCATION@"/>
+    </layout>
+  </bibliography>
+</style>
+EOF
+
 # Create an RMarkdown file.
 cat << EOF > "$2.Rmd"
 ---
@@ -429,8 +443,8 @@ knit: (function(inputFile, encoding)
 output:
   pdf_document:
     keep_tex: true
-bibliography: references.bib
-csl: vancouver-superscript.csl
+bibliography: overleaf/references.bib
+csl: vancouver-superscript.csl # Change to preserve-cite-keys.csl to keep Biblatex cite keys for use on Overleaf.
 ---
 
 \`\`\`{r setup, include=FALSE}
@@ -453,6 +467,16 @@ git submodule add "$1" overleaf
 # uploaded to Overleaf.
 echo "main.pdf" > overleaf/.gitignore
 
+# Create a sample reference file.
+cat << EOF > overleaf/references.bib
+@phdthesis{ronne1962antiproton,
+year = {1962},
+title = {Antiproton and Negative Pion Interactions in Complex Nuclei},
+author = {Ronne, B. E.},
+institution = {Stockholm University}
+}
+EOF
+
 # Commit changes and push to Overleaf.
 git add -A
 git commit -m "Added submodule."
@@ -464,8 +488,27 @@ cd ..
 
 # Create a pre commit hook in the Overleaf submodule to create relative
 # paths for figures in order for them to render correctly on Overleaf.
+# Simultaneously check if the preserve-cite-keys.csl file has been used
+# and in that case replace the RMarkdown references and bibliography
+# with Biblatex cite keys and bibliography.
 cat << 'EOF' > .git/modules/overleaf/hooks/pre-commit
-cat main.tex | sed "s/$(pwd | sed 's/\//\\\//g')/./g" > main.tex
+# Make figure paths relative instead of absolute.
+sed -i '' "s/$(pwd | sed 's/\//\\\//g')/./g" main.tex
+
+# Check if the preserve-cite-keys CSL file has been used
+# and format citation keys to work with biblatex on
+# Overleaf, if that is the case.
+if [ $(grep -c @STARTCITE@ main.tex) -ge 1 ]
+then
+    sed -i '' 's/@STARTCITE@/\\cite{/g' main.tex
+    sed -i '' 's/@ENDCITE@/}/g' main.tex
+    sed -i '' 's/@BIBLIOGRAPHYLOCATION@/\\printbibliography/g' main.tex
+
+    perl -i -0pe 's/\\hypertarget[\S\s]*\\end{CSLReferences}/\\printbibliography/g' main.tex
+    perl -i -0pe 's/pdfcreator={LaTeX via pandoc}}\n\n\\title{/pdfcreator={LaTeX via pandoc}}\n\n\\usepackage[style=vancouver]{biblatex}\n\\addbibresource{references.bib}\n\n\\title{/g' main.tex
+fi
+
+# Stage main.tex for commit again.
 git add main.tex
 EOF
 chmod +x .git/modules/overleaf/hooks/pre-commit
