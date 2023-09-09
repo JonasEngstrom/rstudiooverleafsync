@@ -444,7 +444,8 @@ output:
   pdf_document:
     keep_tex: true
 bibliography: overleaf/references.bib
-csl: vancouver-superscript.csl # Change to preserve-cite-keys.csl to keep Biblatex cite keys for use on Overleaf.
+# Change csl to preserve-cite-keys.csl to keep cite keys for use with Biblatex.
+csl: vancouver-superscript.csl
 ---
 
 \`\`\`{r setup, include=FALSE}
