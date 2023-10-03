@@ -6,8 +6,8 @@
 
 # Check that at least two parameters are passed to the script.
 if [[ $# -lt 2 ]] ; then
-    echo Please provide a URL to the Overleaf git repository and a name for your article.
-    exit 1
+  echo Please provide a URL to the Overleaf git repository and a name for your article.
+  exit 1
 fi
 
 # Make a directory to store the project.
@@ -470,15 +470,15 @@ echo "main.pdf" > overleaf/.gitignore
 
 # Check whether a references.bib file has been pulled from the remote
 # repository and create one otherwise.
-if [[ ! -f "overleaf/references.bib"]] ; then
-cat << EOF > overleaf/references.bib
-@phdthesis{ronne1962antiproton,
-year = {1962},
-title = {Antiproton and Negative Pion Interactions in Complex Nuclei},
-author = {Ronne, B. E.},
-institution = {Stockholm University}
-}
-EOF
+if [[ ! -f "overleaf/references.bib" ]] ; then
+  cat << EOF > overleaf/references.bib
+  @phdthesis{ronne1962antiproton,
+  year = {1962},
+  title = {Antiproton and Negative Pion Interactions in Complex Nuclei},
+  author = {Ronne, B. E.},
+  institution = {Stockholm University}
+  }
+  EOF
 fi
 
 # Commit changes and push to Overleaf.
