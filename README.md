@@ -8,9 +8,11 @@ A bash script that sets up syncing of an R Markdown script with an Overleaf proj
 
 1. Create a new project.
 2. Open the project.
-3. Click Menu.
-4. Click Git.
+3. Click *Menu*.
+4. Click *Git*.
 5. Copy the URL. (Note, do not copy the `git clone` at the start of the same line.)
+
+Optional: Click *New File*, then *From Zotero* or *From Mendeley*. Make sure that the file name is `references.bib`. This syncs Bibtex information from Zotero or Mendeley via Overleaf to your computer for use in RStudio. Remember to run `git pull` after syncing the Zotero data to Overleaf and not to change the `references.bib` file locally.
 
 ### In Terminal
 

@@ -468,7 +468,9 @@ git submodule add "$1" overleaf
 # uploaded to Overleaf.
 echo "main.pdf" > overleaf/.gitignore
 
-# Create a sample reference file.
+# Check whether a references.bib file has been pulled from the remote
+# repository and create one otherwise.
+if [[ ! -f "overleaf/references.bib"]] ; then
 cat << EOF > overleaf/references.bib
 @phdthesis{ronne1962antiproton,
 year = {1962},
@@ -477,6 +479,7 @@ author = {Ronne, B. E.},
 institution = {Stockholm University}
 }
 EOF
+fi
 
 # Commit changes and push to Overleaf.
 git add -A
