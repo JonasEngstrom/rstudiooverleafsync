@@ -45,7 +45,7 @@ To use the CSL file, replace the default `csl: vancouver-superscript.csl` with `
 
 The script was written to work with the following software versions:
 
-- macOS Ventura 13.5.1
+- macOS Sonoma 14.0
 - git 2.39.2
 - GNU bash 3.2.57(1)
 - RStudio 2023.06.0+421
@@ -53,3 +53,18 @@ The script was written to work with the following software versions:
 - rmarkdown 2.23
 - tinytex 0.45
 - knitr 1.43
+
+## Bonus Tip: Simpler Citing
+
+If you opt to sync your library with Zotero, as described under [On Overleaf] above, you can facilitate the citing further by installing the [*Better BibTeX*](https://retorque.re/zotero-better-bibtex/) plugin and performing the following settings:
+
+- Open *Settings* from the *Zotero* menu and go the *Better BibTex* category.
+- Set the *Citation key formula* to `zotero.clean`.
+- Set the *Quick-Copy/drag-and-drop citations* under *Quick-Copy* to *Pandoc citation*.
+- Check the *Surround Pandoc citations with brackets* checkbox.
+- Go to the *Export* category.
+- Set the *Item Format* to *Better BibTeX Citation Key Quick Copy*.
+
+You might also have to select all papers and right click and select the *Better BibTeX* submenu, followed by *Unpin BibTeX key* and then *Refresh BibTeX key* to get the same BibTeX keys on your local computer as on Zotero online, which is what syncs to Overleaf. NB! Be careful with this if you have previous papers using your synced Zotero library or if you have custom cite keys in your library, as this might break those links.
+
+Now you should be able to select the papers you want to cite, press `Cmd + Shift + C` and then paste the references straight into your RMarkdown document. This should then work with your synced references. Just remember to press the *Refresh* button in the Overleaf web interface and do a `git pull` to get your Zotero references into your local project.
