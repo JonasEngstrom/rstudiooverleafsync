@@ -413,8 +413,8 @@ cat << EOF > "preserve-cite-keys.csl"
     </author>
   </info>
   <citation>
-    <layout font-weight="normal">
-      <text variable="citation-key" prefix="@STARTCITE@" suffix="@ENDCITE@"/>
+    <layout prefix="@STARTCITE@" suffix="@ENDCITE@">
+      <text variable="citation-key"/>
     </layout>
   </citation>
   <bibliography>
@@ -504,9 +504,8 @@ sed -i '' "s/$(pwd | sed 's/\//\\\//g')/./g" main.tex
 # Overleaf, if that is the case.
 if [ $(grep -c @STARTCITE@ main.tex) -ge 1 ]
 then
-    sed -i '' 's/@STARTCITE@/\\cite{/g' main.tex
-    sed -i '' 's/@ENDCITE@/}/g' main.tex
-    sed -i '' 's/@BIBLIOGRAPHYLOCATION@/\\printbibliography/g' main.tex
+    perl -i -0pe 's{\@STARTCITE\@((?:.*))(\@ENDCITE\@)}{ join "", "\\cite\{", $1 =~ s/(\\)//gr, "\}" }xe' main.tex
+    perl -i -0pe 's/\@BIBLIOGRAPHYLOCATION\@/\\printbibliography/g' main.tex
 
     perl -i -0pe 's/\\hypertarget[\S\s]*\\end{CSLReferences}/\\printbibliography/g' main.tex
     perl -i -0pe 's/pdfcreator={LaTeX via pandoc}}\n\n\\title{/pdfcreator={LaTeX via pandoc}}\n\n\\usepackage[style=vancouver]{biblatex}\n\\addbibresource{references.bib}\n\n\\title{/g' main.tex
