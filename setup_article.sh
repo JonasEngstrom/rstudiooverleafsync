@@ -471,14 +471,14 @@ echo "main.pdf" > overleaf/.gitignore
 # Check whether a references.bib file has been pulled from the remote
 # repository and create one otherwise.
 if [[ ! -f "overleaf/references.bib" ]] ; then
-  cat << EOF > overleaf/references.bib
-  @phdthesis{ronne1962antiproton,
-  year = {1962},
-  title = {Antiproton and Negative Pion Interactions in Complex Nuclei},
-  author = {Ronne, B. E.},
-  institution = {Stockholm University}
-  }
-  EOF
+cat << EOF > overleaf/references.bib
+@phdthesis{ronne1962antiproton,
+year = {1962},
+title = {Antiproton and Negative Pion Interactions in Complex Nuclei},
+author = {Ronne, B. E.},
+institution = {Stockholm University}
+}
+EOF
 fi
 
 # Commit changes and push to Overleaf.
