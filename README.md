@@ -53,6 +53,7 @@ The script was written to work with the following software versions:
 - rmarkdown 2.23
 - tinytex 0.45
 - knitr 1.43
+- bookdown 0.36
 
 ## Bonus Tip: Simpler Citing
 

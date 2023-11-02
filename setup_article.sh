@@ -441,15 +441,19 @@ knit: (function(inputFile, encoding)
         }
       )
 output:
-  pdf_document:
+  bookdown::pdf_document2:
     keep_tex: true
+    toc: false
 bibliography: overleaf/references.bib
 # Change csl to preserve-cite-keys.csl to keep cite keys for use with Biblatex.
 csl: vancouver-superscript.csl
+#csl: preserve-cite-keys.csl
 ---
 
 \`\`\`{r setup, include=FALSE}
 knitr::opts_chunk\$set(echo = TRUE)
+# Disable the previous line and enable the subsequent to hide code chunks.
+# knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE)
 \`\`\`
 
 This is a reference[@ronne1962antiproton].
@@ -507,7 +511,7 @@ then
     perl -i -0pe 's{\@STARTCITE\@((?:.*))(\@ENDCITE\@)}{ join "", "\\cite\{", $1 =~ s/(\\)//gr, "\}" }gxe' main.tex
     perl -i -0pe 's/\@BIBLIOGRAPHYLOCATION\@/\\printbibliography/g' main.tex
 
-    perl -i -0pe 's/\\hypertarget[\S\s]*\\end{CSLReferences}/\\printbibliography/g' main.tex
+    perl -i -0pe 's/\\hypertarget{refs}[\S\s]*\\end{CSLReferences}/\\printbibliography/g' main.tex
     perl -i -0pe 's/pdfcreator={LaTeX via pandoc}}\n\n\\title{/pdfcreator={LaTeX via pandoc}}\n\n\\usepackage[style=vancouver]{biblatex}\n\\addbibresource{references.bib}\n\n\\title{/g' main.tex
 fi
 
