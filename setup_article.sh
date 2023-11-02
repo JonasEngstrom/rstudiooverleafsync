@@ -509,6 +509,7 @@ sed -i '' "s/$(pwd | sed 's/\//\\\//g')/./g" main.tex
 if [ $(grep -c @STARTCITE@ main.tex) -ge 1 ]
 then
     perl -i -0pe 's{\@STARTCITE\@((?:.*))(\@ENDCITE\@)}{ join "", "\\cite\{", $1 =~ s/(\\)//gr, "\}" }gxe' main.tex
+    perl -i -0pe 's/\@STARTCITE\@/\\cite{/g; s/\@ENDCITE\@/}/g' main.tex
     perl -i -0pe 's/\@BIBLIOGRAPHYLOCATION\@/\\printbibliography/g' main.tex
 
     perl -i -0pe 's/\\hypertarget{refs}[\S\s]*\\end{CSLReferences}/\\printbibliography/g' main.tex
