@@ -57,7 +57,7 @@ The script was written to work with the following software versions:
 
 ## Bonus Tip: Simpler Citing
 
-If you opt to sync your library with Zotero, as described under [On Overleaf] above, you can facilitate the citing further by installing the [*Better BibTeX*](https://retorque.re/zotero-better-bibtex/) plugin and performing the following settings:
+If you opt to sync your library with Zotero, as described under [On Overleaf](#on-overleaf) above, you can facilitate the citing further by installing the [*Better BibTeX*](https://retorque.re/zotero-better-bibtex/) plugin and performing the following settings:
 
 - Open *Settings* from the *Zotero* menu and go the *Better BibTex* category.
 - Set the *Citation key formula* to `zotero.clean`.
